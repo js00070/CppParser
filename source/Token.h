@@ -8,6 +8,8 @@ namespace CppParser
 {
 	enum class TokenType
 	{
+		NONE,
+
 		INT,
 		FLOAT,
 		BOOL,
@@ -18,11 +20,12 @@ namespace CppParser
 		KEYWORDS,
 		OPERATORS,
 		DELIMITER,
-		UNKNOWN
 	};
 
 	enum class TokenValue
 	{
+		NONE,
+
 		// keywords
 		AUTO,
 		BOOL,
@@ -119,25 +122,42 @@ namespace CppParser
 	class TokenLocation : public zl::Object
 	{
 	public:
-		TokenLocation();
-		TokenLocation(std::string fileName, int line, int column);
+		TokenLocation() :
+			fileName_(""), line_(0), column_(0)
+		{}
+		TokenLocation(const std::string fileName, int line, int column) :
+			fileName_(fileName), line_(line), column_(column)
+		{}
 		std::string ToString() const;
 	private:
-		std::string _fileName;
-		int _line;
-		int _column;
+		std::string fileName_;
+		int line_;
+		int column_;
 	};
 
 	class Token : public zl::Object
 	{
 	public:
+		Token() :
+			type_(TokenType::NONE), value_(TokenValue::NONE),
+			location_(std::string(""),0,0), symbolPrecedence_(0), name_(""),
+			intValue_(0), floatValue_(0.0), strValue_(std::string(""))
+		{}
 
+		Token(TokenType, TokenValue, TokenLocation&, int, const std::string&, int);
+		Token(TokenType, TokenValue, TokenLocation&, int, const std::string&, double);
+		Token(TokenType, TokenValue, TokenLocation&, int, const std::string&, const std::string);
 	private:
-		TokenType _type;
-		TokenValue _value;
-		TokenLocation _location;
-		int _symbolPrecedence;
-		std::string _name;
+		TokenType type_;
+		TokenValue value_;
+		TokenLocation location_;
+		int symbolPrecedence_;
+		std::string name_;
+
+		// const values of token
+		int intValue_;
+		double floatValue_;
+		std::string strValue_;
 	};
 }
 
