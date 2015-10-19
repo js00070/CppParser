@@ -147,6 +147,8 @@ namespace CppParser
 		Token(TokenType, TokenValue, TokenLocation&, int, const std::string&, int);
 		Token(TokenType, TokenValue, TokenLocation&, int, const std::string&, double);
 		Token(TokenType, TokenValue, TokenLocation&, int, const std::string&, const std::string);
+	
+		
 	private:
 		TokenType type_;
 		TokenValue value_;
