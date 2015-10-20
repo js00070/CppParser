@@ -4,11 +4,15 @@
 #include "Basic.h"
 #include "Token.h"
 
-class Scanner : public zl::Interface
+namespace CppParser
 {
-public:
 
-private:
+	class Scanner : public zl::Interface
+	{
+	public:
 
-};
+	private:
+
+	};
+}
 #endif
