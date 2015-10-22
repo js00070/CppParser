@@ -5,10 +5,11 @@
 #include <string>
 #include <tuple>
 #include "Token.h"
+#include "Basic.h"
 
 namespace CppParser
 {
-	class Dictionary
+	class Dictionary : zl::Interface
 	{
 	public:
 		

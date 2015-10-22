@@ -101,8 +101,10 @@ namespace CppParser
 		RIGHT_SQUARE,      //]
 		PLUS,              //+
 		PLUS_PLUS,         //++
+//		RIGHT_PLUS_PLUS,   //++
 		MINUS,             //-
 		MINUS_MINUS,       //--
+//		RIGHT_MINUS_MINUS, //--
 		MULTIPLY,          //*
 		DIVIDE,            //div
 		COMMA,             //,
@@ -115,7 +117,15 @@ namespace CppParser
 		MULTIPLY_ASSIGN,   //*=
 		DIVIDE_ASSIGN,     //div=
 		DOT,               //.
-		RIGHT_ARROW        //->
+		RIGHT_ARROW,       //->
+		MOD,               //%
+		LOGIC_AND,         //&&
+		LOGIC_OR,          //||
+		LOGIC_NOT,         //!
+		BIT_AND,           //&
+		BIT_OR,            //|
+		BIT_NOT,           //~
+		EQUAL              //==
 		
 	};
 
