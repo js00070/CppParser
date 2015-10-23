@@ -99,6 +99,8 @@ namespace CppParser
 		RIGHT_PAREN,       //)
 		LEFT_SQUARE,       //[
 		RIGHT_SQUARE,      //]
+		LEFT_BRACE,        //{
+		RIGHT_BRACE,       //}
 		PLUS,              //+
 		PLUS_PLUS,         //++
 //		RIGHT_PLUS_PLUS,   //++
