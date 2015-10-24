@@ -152,7 +152,7 @@ namespace CppParser
 	public:
 		Token() :
 			type_(TokenType::NONE), value_(TokenValue::NONE),
-			location_(std::string(""),0,0), symbolPrecedence_(0), name_(""),
+			location_(std::string(""),0,0), name_(""),
 			intValue_(0), floatValue_(0.0), strValue_(std::string(""))
 		{}
 
@@ -165,7 +165,7 @@ namespace CppParser
 		TokenType type_;
 		TokenValue value_;
 		TokenLocation location_;
-		int symbolPrecedence_;
+//		int symbolPrecedence_;
 		std::string name_;
 
 		// const values of token

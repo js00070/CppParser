@@ -11,21 +11,21 @@ namespace CppParser
 	Token::Token(TokenType type,TokenValue value,TokenLocation& location,
 		int symbolPrecedence, const std::string& name,int intValue) :
 		type_(type), value_(value), location_(location),
-		symbolPrecedence_(symbolPrecedence), name_(name),
+		name_(name),
 		intValue_(intValue)
 	{}
 
 	Token::Token(TokenType type, TokenValue value, TokenLocation& location,
 		int symbolPrecedence, const std::string& name, double floatValue) :
 		type_(type), value_(value), location_(location),
-		symbolPrecedence_(symbolPrecedence), name_(name),
+		name_(name),
 		floatValue_(floatValue)
 	{}
 
 	Token::Token(TokenType type, TokenValue value, TokenLocation& location,
 		int symbolPrecedence, const std::string& name, const std::string strValue) :
 		type_(type), value_(value), location_(location),
-		symbolPrecedence_(symbolPrecedence), name_(name),
+		name_(name),
 		strValue_(strValue)
 	{}
 }
