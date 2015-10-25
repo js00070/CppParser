@@ -3,6 +3,7 @@
 
 #include "Basic.h"
 #include <fstream>
+#include <iostream>
 #include "Token.h"
 #include "Dictionary.h"
 
@@ -31,7 +32,31 @@ namespace CppParser
 	private:
 		void GetNextChar();
 		char PeekChar();
+		void AddToBuffer(char c);
+		void ReduceBuffer();
 
+		void MakeToken(TokenType tt,TokenValue tv,
+			const TokenLocation& loc,std::string name);
+
+		void MakeToken(TokenType tt,TokenValue tv,
+			const TokenLocation& loc,int intValue,std::string name);
+
+		void MakeToken(TokenType tt, TokenValue tv,
+			const TokenLocation& loc, double floatValue, std::string name);
+
+		void HandleEOFState();
+		void HandleIdentifierState();
+		void HandleNumberState();
+		void HandleStringState();
+		void HandleOperationState();
+		void Preprocess();
+		void HandleLineComment();
+		void HandleBlockComment();
+		TokenLocation GetTokenLocation() const;
+
+		void HandleDigit();
+		void HandleXDigit();
+		
 
 	private:
 		const std::string fileName_;

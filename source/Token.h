@@ -156,10 +156,10 @@ namespace CppParser
 			intValue_(0), floatValue_(0.0), strValue_(std::string(""))
 		{}
 
-		Token(TokenType, TokenValue, TokenLocation&, int, const std::string&, int);
-		Token(TokenType, TokenValue, TokenLocation&, int, const std::string&, double);
-		Token(TokenType, TokenValue, TokenLocation&, int, const std::string&, const std::string);
-	
+		Token(TokenType, TokenValue, const TokenLocation&, const std::string&, int);
+		Token(TokenType, TokenValue, const TokenLocation&, const std::string&, double);
+		Token(TokenType, TokenValue, const TokenLocation&, const std::string&, const std::string);
+		Token(TokenType, TokenValue, const TokenLocation&, const std::string&);
 		
 	private:
 		TokenType type_;

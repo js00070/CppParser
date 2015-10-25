@@ -8,24 +8,34 @@ namespace CppParser
 			+ "," + std::to_string(column_));
 	}
 
-	Token::Token(TokenType type,TokenValue value,TokenLocation& location,
-		int symbolPrecedence, const std::string& name,int intValue) :
+	Token::Token(TokenType type,TokenValue value,
+		const TokenLocation& location,
+		const std::string& name,int intValue) :
 		type_(type), value_(value), location_(location),
 		name_(name),
 		intValue_(intValue)
 	{}
 
-	Token::Token(TokenType type, TokenValue value, TokenLocation& location,
-		int symbolPrecedence, const std::string& name, double floatValue) :
+	Token::Token(TokenType type, TokenValue value,
+		const TokenLocation& location,
+		const std::string& name, double floatValue) :
 		type_(type), value_(value), location_(location),
 		name_(name),
 		floatValue_(floatValue)
 	{}
 
-	Token::Token(TokenType type, TokenValue value, TokenLocation& location,
-		int symbolPrecedence, const std::string& name, const std::string strValue) :
+	Token::Token(TokenType type, TokenValue value,
+		const TokenLocation& location,
+		const std::string& name, const std::string strValue) :
 		type_(type), value_(value), location_(location),
 		name_(name),
 		strValue_(strValue)
+	{}
+
+	Token::Token(TokenType type, TokenValue value,
+		const TokenLocation& location,
+		const std::string& name) :
+		type_(type), value_(value), location_(location),
+		name_(name)
 	{}
 }
