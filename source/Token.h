@@ -25,6 +25,7 @@ namespace CppParser
 	enum class TokenValue
 	{
 		NONE,
+		UNRESERVED,
 
 		// keywords
 		AUTO,

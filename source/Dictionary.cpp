@@ -109,4 +109,19 @@ namespace CppParser
 	{
 		dict_.insert(std::make_pair(name,std::make_tuple(type,value)));
 	}
+
+	std::tuple<TokenType,TokenValue> 
+		Dictionary::LookUp(const std::string& name)
+	{
+		auto it = dict_.find(name);
+		if (it == dict_.end())
+		{
+			return std::make_tuple(TokenType::IDENTIFIER,TokenValue::UNRESERVED);
+		}
+		else
+		{
+			return std::make_tuple(std::get<0>(it->second),std::get<1>(it->second));
+		}
+	}
+
 }

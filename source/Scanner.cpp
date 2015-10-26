@@ -95,22 +95,80 @@ namespace CppParser
 			{
 			case State::NONE:
 				GetNextChar();
+				Preprocess();
+				if (input_.eof())
+					state_ = State::END_OF_FILE;
+				else
+				{
+					if (std::isalpha(currentChar_))
+						state_ = State::IDENTIFIER;
+					else
+					{
+						if (std::isdigit(currentChar_))
+							state_ = State::NUMBER;
+						else
+						{
+							if (currentChar_ == '\"')
+								state_ = State::STRING;
+							else
+								state_ = State::OPERATION;
+						}
+					}
+				}
 				break;
 			case State::END_OF_FILE:
+				HandleEOFState();
 				break;
 			case State::IDENTIFIER:
+				HandleIdentifierState();
 				break;
 			case State::NUMBER:
+				HandleNumberState();
 				break;
 			case State::OPERATION:
+				HandleOperationState();
 				break;
 			case State::STRING:
+				HandleStringState();
 				break;
 			default:
 				break;
 			}
 
 		} while (!matched);
+	}
+
+	inline void Scanner::HandleIdentifierState()
+	{
+		loc_ = GetTokenLocation();
+		while (std::isalnum(currentChar_) || currentChar_ == '_')
+		{
+			AddToBuffer(currentChar_);
+			GetNextChar();
+		}
+		auto tokenInfo = dictionary_.LookUp(buffer_);
+		token_ = Token(std::get<0>(tokenInfo),std::get<1>(tokenInfo),loc_,buffer_);
+	}
+
+	inline void Scanner::HandleNumberState()
+	{
+		loc_ = GetTokenLocation();
+
+	}
+
+	inline void Scanner::HandleOperationState()
+	{
+		loc_ = GetTokenLocation();
+	}
+
+	inline void Scanner::HandleStringState()
+	{
+		loc_ = GetTokenLocation();
+	}
+
+	inline void Scanner::HandleDigit()
+	{
+
 	}
 
 	inline Token Scanner::GetToken() const
@@ -121,5 +179,10 @@ namespace CppParser
 	inline bool Scanner::GetErrorFlag()
 	{
 		return errorFlag_;
+	}
+
+	inline TokenLocation Scanner::GetTokenLocation() const
+	{
+		return TokenLocation(fileName_,line_,column_);
 	}
 }

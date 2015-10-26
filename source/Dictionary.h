@@ -14,6 +14,7 @@ namespace CppParser
 	public:
 		Dictionary();
 		bool HaveToken(const std::string& name);
+		std::tuple<TokenType,TokenValue> LookUp(const std::string& name);
 	private:
 		void AddToken(const std::string& name,TokenType type,TokenValue value,int symbolPrecedence);
 
