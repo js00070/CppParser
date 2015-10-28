@@ -159,11 +159,23 @@ namespace CppParser
 	inline void Scanner::HandleOperationState()
 	{
 		loc_ = GetTokenLocation();
+		while (!(std::isalnum(currentChar_) || std::isspace(currentChar_)))
+		{
+			AddToBuffer(currentChar_);
+			GetNextChar();
+		}
+		auto tokenInfo = dictionary_.LookUp(buffer_);
+		token_ = Token(std::get<0>(tokenInfo), std::get<1>(tokenInfo), loc_, buffer_);
 	}
 
 	inline void Scanner::HandleStringState()
 	{
 		loc_ = GetTokenLocation();
+		while (PeekChar() != '\"')
+		{
+			AddToBuffer(currentChar_);
+			GetNextChar();
+		}
 	}
 
 	inline void Scanner::HandleDigit()
