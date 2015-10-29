@@ -54,8 +54,7 @@ namespace CppParser
 		void HandleBlockComment();
 		TokenLocation GetTokenLocation() const;
 
-		void HandleDigit();
-		void HandleXDigit();
+//		void HandleDigit();
 		
 
 	private:

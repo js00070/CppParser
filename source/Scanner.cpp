@@ -153,7 +153,51 @@ namespace CppParser
 	inline void Scanner::HandleNumberState()
 	{
 		loc_ = GetTokenLocation();
-
+		if (currentChar_=='0')
+		{
+			if (PeekChar() == 'x')
+			{
+				AddToBuffer(currentChar_);
+				GetNextChar();
+				AddToBuffer(currentChar_);
+				GetNextChar();
+				while (std::isdigit(currentChar_) || (std::tolower(currentChar_)<='f' && std::tolower(currentChar_)>='a'))
+				{
+					AddToBuffer(currentChar_);
+					GetNextChar();
+				}
+				int value = std::stoi(buffer_, 0, 16);
+				token_ = \
+					Token(TokenType::INT,TokenValue::UNRESERVED,loc_,buffer_,value);
+			}
+			else
+			{
+				// base = 8 
+			}
+		}
+		else
+		{
+			bool bfloat = false;
+			while (std::isdigit(currentChar_) || currentChar_ == '.')
+			{
+				if (currentChar_ == '.')
+					bfloat = true;
+				AddToBuffer(currentChar_);
+				GetNextChar();
+			}
+			if (bfloat)
+			{
+				double value = std::stod(buffer_,0);
+				token_ = \
+					Token(TokenType::FLOAT,TokenValue::UNRESERVED,loc_,buffer_,value);
+			}
+			else
+			{
+				int value = std::stoi(buffer_);
+				token_ = \
+					Token(TokenType::INT, TokenValue::UNRESERVED, loc_, buffer_, value);
+			}
+		}
 	}
 
 	inline void Scanner::HandleOperationState()
@@ -176,11 +220,9 @@ namespace CppParser
 			AddToBuffer(currentChar_);
 			GetNextChar();
 		}
-	}
-
-	inline void Scanner::HandleDigit()
-	{
-
+		GetNextChar();
+		AddToBuffer(currentChar_);
+		token_ = Token(TokenType::STRING,TokenValue::UNRESERVED,loc_,buffer_,buffer_.substr(1,buffer_.length()-2));
 	}
 
 	inline Token Scanner::GetToken() const
