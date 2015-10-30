@@ -46,6 +46,11 @@ namespace CppParser
 		buffer_.pop_back();
 	}
 
+	inline void Scanner::PutBack(char c)
+	{
+		input_.putback(c);
+	}
+
 	inline void Scanner::MakeToken(TokenType tt, TokenValue tv,
 		const TokenLocation& loc, std::string name)
 	{
@@ -70,6 +75,14 @@ namespace CppParser
 		state_ = State::NONE;
 	}
 
+	inline void Scanner::MakeToken(TokenType tt, TokenValue tv,
+		const TokenLocation& loc, std::string strValue, std::string name)
+	{
+		token_ = Token(tt, tv, loc, name, strValue);
+		buffer_.clear();
+		state_ = State::NONE;
+	}
+
 	inline void Scanner::Preprocess()
 	{
 		do
@@ -81,6 +94,14 @@ namespace CppParser
 			HandleLineComment();
 			HandleBlockComment();
 		} while (std::isspace(currentChar_));
+	}
+
+	void Scanner::HandleLineComment()
+	{
+	}
+
+	void Scanner::HandleBlockComment()
+	{
 	}
 
 	Token Scanner::GetNextToken()
@@ -136,6 +157,7 @@ namespace CppParser
 			}
 
 		} while (!matched);
+		return token_;
 	}
 
 	inline void Scanner::HandleIdentifierState()
@@ -146,8 +168,9 @@ namespace CppParser
 			AddToBuffer(currentChar_);
 			GetNextChar();
 		}
+		PutBack(currentChar_);
 		auto tokenInfo = dictionary_.LookUp(buffer_);
-		token_ = Token(std::get<0>(tokenInfo),std::get<1>(tokenInfo),loc_,buffer_);
+		MakeToken(std::get<0>(tokenInfo), std::get<1>(tokenInfo), loc_,buffer_);
 	}
 
 	inline void Scanner::HandleNumberState()
@@ -166,13 +189,20 @@ namespace CppParser
 					AddToBuffer(currentChar_);
 					GetNextChar();
 				}
+				PutBack(currentChar_);
 				int value = std::stoi(buffer_, 0, 16);
-				token_ = \
-					Token(TokenType::INT,TokenValue::UNRESERVED,loc_,buffer_,value);
+				MakeToken(TokenType::INT, TokenValue::UNRESERVED, loc_, value,buffer_);
 			}
 			else
 			{
-				// base = 8 
+				if (std::isdigit(PeekChar()))
+				{
+					// base = 8
+				}
+				else
+				{
+					MakeToken(TokenType::INT, TokenValue::UNRESERVED, loc_, 0, buffer_);
+				}
 			}
 		}
 		else
@@ -185,17 +215,16 @@ namespace CppParser
 				AddToBuffer(currentChar_);
 				GetNextChar();
 			}
+			PutBack(currentChar_);
 			if (bfloat)
 			{
 				double value = std::stod(buffer_,0);
-				token_ = \
-					Token(TokenType::FLOAT,TokenValue::UNRESERVED,loc_,buffer_,value);
+				MakeToken(TokenType::FLOAT, TokenValue::UNRESERVED, loc_, value,buffer_);
 			}
 			else
 			{
 				int value = std::stoi(buffer_);
-				token_ = \
-					Token(TokenType::INT, TokenValue::UNRESERVED, loc_, buffer_, value);
+				MakeToken(TokenType::INT, TokenValue::UNRESERVED, loc_, value, buffer_);
 			}
 		}
 	}
@@ -203,13 +232,23 @@ namespace CppParser
 	inline void Scanner::HandleOperationState()
 	{
 		loc_ = GetTokenLocation();
+		AddToBuffer(currentChar_);
+		GetNextChar();
+		std::tuple<TokenType,TokenValue> tokenInfo;
 		while (!(std::isalnum(currentChar_) || std::isspace(currentChar_)))
 		{
 			AddToBuffer(currentChar_);
+			tokenInfo = dictionary_.LookUp(buffer_);
+			if (std::get<1>(tokenInfo) == TokenValue::UNRESERVED)
+			{
+				ReduceBuffer();
+				break;
+			}
 			GetNextChar();
 		}
-		auto tokenInfo = dictionary_.LookUp(buffer_);
-		token_ = Token(std::get<0>(tokenInfo), std::get<1>(tokenInfo), loc_, buffer_);
+		PutBack(currentChar_);
+		tokenInfo = dictionary_.LookUp(buffer_);
+		MakeToken(std::get<0>(tokenInfo), std::get<1>(tokenInfo), loc_, buffer_);
 	}
 
 	inline void Scanner::HandleStringState()
@@ -222,10 +261,18 @@ namespace CppParser
 		}
 		GetNextChar();
 		AddToBuffer(currentChar_);
-		token_ = Token(TokenType::STRING,TokenValue::UNRESERVED,loc_,buffer_,buffer_.substr(1,buffer_.length()-2));
+		std::string tmpstr = buffer_.substr(1, buffer_.length() - 2);
+		MakeToken(TokenType::STRING, TokenValue::UNRESERVED, loc_, tmpstr, buffer_);
 	}
 
-	inline Token Scanner::GetToken() const
+	inline void Scanner::HandleEOFState()
+	{
+		loc_ = GetTokenLocation();
+		MakeToken(TokenType::END_OF_FILE, TokenValue::UNRESERVED, loc_, std::string("END_OF_FILE"));
+		input_.close();
+	}
+
+	Token Scanner::GetToken() const
 	{
 		return token_;
 	}

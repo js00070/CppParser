@@ -1,0 +1,8 @@
+void print(char* s, int a, int b)
+{}
+
+int run()
+{
+	print("aaaaaabbbb%d%d",123,0xFFF);
+	return 0;
+}

@@ -38,4 +38,19 @@ namespace CppParser
 		type_(type), value_(value), location_(location),
 		name_(name)
 	{}
+
+	TokenType Token::GetTokenType() const
+	{
+		return type_;
+	}
+
+	TokenValue Token::GetTokenValue() const
+	{
+		return value_;
+	}
+	
+	void Token::Dump(std::ostream& out) const
+	{
+		out << location_.ToString() << "\t" << name_ << std::endl;
+	}
 }

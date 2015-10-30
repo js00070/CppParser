@@ -96,6 +96,7 @@ namespace CppParser
 		AddToken("final", TokenType::KEYWORDS, TokenValue::FINAL, -1);
 	}
 
+
 	bool Dictionary::HaveToken(const std::string& name)
 	{
 		auto it = dict_.find(name);

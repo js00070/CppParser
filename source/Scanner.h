@@ -34,6 +34,7 @@ namespace CppParser
 		char PeekChar();
 		void AddToBuffer(char c);
 		void ReduceBuffer();
+		void PutBack(char c);
 
 		void MakeToken(TokenType tt,TokenValue tv,
 			const TokenLocation& loc,std::string name);
@@ -43,6 +44,8 @@ namespace CppParser
 
 		void MakeToken(TokenType tt, TokenValue tv,
 			const TokenLocation& loc, double floatValue, std::string name);
+
+		void MakeToken(TokenType tt, TokenValue tv, const TokenLocation & loc, std::string strValue, std::string name);
 
 		void HandleEOFState();
 		void HandleIdentifierState();

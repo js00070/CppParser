@@ -9,6 +9,7 @@ namespace CppParser
 	enum class TokenType
 	{
 		NONE,
+		END_OF_FILE,
 
 		INT,
 		FLOAT,
@@ -162,6 +163,17 @@ namespace CppParser
 		Token(TokenType, TokenValue, const TokenLocation&, const std::string&, const std::string);
 		Token(TokenType, TokenValue, const TokenLocation&, const std::string&);
 		
+		TokenType GetTokenType() const;
+		TokenValue GetTokenValue() const;
+//		const TokenLocation& GetTokenLocation() const;
+//		std::string GetTokenName() const;
+
+		void Dump(std::ostream& out) const;
+
+//		int GetIntValue() const;
+//		double GetFloatValue() const;
+//		std::string GetStringValue() const;
+
 	private:
 		TokenType type_;
 		TokenValue value_;
