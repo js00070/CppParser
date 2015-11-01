@@ -3,6 +3,7 @@
 
 #include "Basic.h"
 #include "Scanner.h"
+#include <string>
 
 namespace CppParser
 {
@@ -17,9 +18,13 @@ namespace CppParser
 	class Parser : public zl::Interface
 	{
 	public:
+		explicit Parser(std::string& fileName);
+		
 
 	private:
-		
+		const std::string fileName_;
+		Scanner scanner_;
+
 	};
 
 
