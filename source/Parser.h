@@ -7,14 +7,6 @@
 
 namespace CppParser
 {
-	class ExprAST // Base class for all expression nodes
-	{
-	public:
-		virtual ~ExprAST() {}
-	};
-
-
-
 	class Parser : public zl::Interface
 	{
 	public:
