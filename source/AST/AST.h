@@ -76,9 +76,21 @@ Type
 
 
 */
+#ifndef AST_H
+#define AST_H
+
+#include <string>
 
 
 namespace CppParser
 {
-	
+	class SourceLocation
+	{
+	public:
+
+	private:
+
+	};
 }
+
+#endif
