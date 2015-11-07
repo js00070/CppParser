@@ -45,8 +45,8 @@ Decl
 	FieldDecl
 	EnumConstantDecl
 	TypeDecl
-	  TypedefNameDecl
-	    TypedefDecl
+//	  TypedefNameDecl
+	  TypedefDecl
 	  TagDecl // struct/union/class/enum
 	    EnumDecl
 		RecordDecl // struct/union/class
@@ -61,9 +61,9 @@ Type
     LValueReferenceType
 	RValueReferenceType //
   ArrayType
-    ConstantArrayType
-    IncompleteArrayType
-	VariableArrayType
+    ConstantArrayType // int A[10]
+    IncompleteArrayType // int A[]
+	VariableArrayType // int A[n]
 	DependentSizedArrayType // used in template
   FunctionType
     FunctionNoProtoType // int func()
@@ -79,18 +79,13 @@ Type
 #ifndef AST_H
 #define AST_H
 
-#include <string>
-
+#include "Stmt.h"
+#include "Expr.h"
+#include "Decl.h"
 
 namespace CppParser
 {
-	class SourceLocation
-	{
-	public:
-
-	private:
-
-	};
+	
 }
 
 #endif

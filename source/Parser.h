@@ -4,6 +4,7 @@
 #include "Basic.h"
 #include "Scanner.h"
 #include <string>
+#include "AST\AST.h"
 
 namespace CppParser
 {

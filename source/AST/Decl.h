@@ -34,6 +34,35 @@ namespace CppParser
 
 	};
 
+	class EnumConstantDecl : public NameDecl
+	{
+
+	};
+
+	class TypeDecl : public NameDecl
+	{
+
+	};
+
+	class TypedefDecl : public TypeDecl
+	{
+
+	};
+
+	class TagDecl : public TypeDecl
+	{
+
+	};
+
+	class EnumDecl : public TagDecl
+	{
+
+	};
+
+	class RecordDecl : public TagDecl
+	{
+
+	};
 }
 
 #endif
