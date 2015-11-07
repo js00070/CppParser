@@ -41,12 +41,18 @@ namespace CppParser
 	
 	};
 
-	class DeclStmt
+	class DeclStmt : public Stmt
 	{
 	public:
 		
 	protected:
 		std::unique_ptr<Decl> declaration_;
+		
+	};
+
+	class NullStmt : public Stmt
+	{
+
 	};
 }
 
