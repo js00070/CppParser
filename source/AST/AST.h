@@ -5,10 +5,11 @@ Stmt
   Expr
     DeclRefExpr // reference to a declared variable
     PredefinedExpr // such as __func__
-    IntegerLiteral
+	IntegerLiteral
     CharacterLiteral
     FloatingLiteral
     StringLiteral
+	EnumConstantExpr
     ParenExpr // (1)
 	UnaryOperator
 	OffsetOfExpr // ?
@@ -85,7 +86,10 @@ Type
 
 namespace CppParser
 {
-	
+	int test(int x,const int a,const int b,const int c,const int d)
+	{
+			
+	}
 }
 
 #endif

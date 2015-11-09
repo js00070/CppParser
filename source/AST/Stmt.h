@@ -33,8 +33,10 @@ namespace CppParser
 		StmtClass stmtClass_;
 		SourceLocation sourceLocation_;
 	public:
-		Stmt() : stmtClass_(StmtClass::NoneClass) {}
-		Stmt(StmtClass stmtClass) : stmtClass_(stmtClass) {}
+		Stmt() :
+			stmtClass_(StmtClass::NoneClass) {}
+		Stmt(StmtClass stmtClass) :
+			stmtClass_(stmtClass) {}
 		
 		StmtClass getStmtClass() const
 		{
@@ -46,7 +48,8 @@ namespace CppParser
 	class DeclStmt : public Stmt
 	{
 	public:
-		
+		DeclStmt() :
+			Stmt(Stmt::StmtClass::DeclStmtClass) {}
 	protected:
 		std::unique_ptr<Decl> declaration_;
 		
@@ -54,27 +57,39 @@ namespace CppParser
 
 	class NullStmt : public Stmt
 	{
-
+		
 	};
 
 	class CompoundStmt : public Stmt
 	{
+	public:
+		typedef StmtList::iterator Iterator;
+	public:
+		CompoundStmt() :
+			Stmt(Stmt::StmtClass::CompoundStmtClass) {}
+		void push_back(Stmt const* pStmt);
 
+	protected:
+		StmtList stmtList_;
 	};
 
 	class SwitchStmt : public Stmt
 	{
-
+	public:
+		SwitchStmt() :
+			Stmt(Stmt::StmtClass::SwitchStmtClass) {}
 	};
 
 	class SwitchCase : public Stmt
 	{
-
+	public:
+		SwitchCase() :
+			Stmt(Stmt::StmtClass::SwitchCaseClass) {}
 	};
 
 	class CaseStmt : public SwitchCase
 	{
-
+		
 	};
 
 	class DefaultStmt : public SwitchCase
@@ -84,32 +99,44 @@ namespace CppParser
 
 	class IfStmt : public Stmt
 	{
-
+	public:
+		IfStmt() :
+			Stmt(Stmt::StmtClass::IfStmtClass) {}
 	};
 
 	class WhileStmt : public Stmt
 	{
-
+	public:
+		WhileStmt() :
+			Stmt(Stmt::StmtClass::WhileStmtClass) {}
 	};
 
 	class ForStmt : public Stmt
 	{
-
+	public:
+		ForStmt() :
+			Stmt(Stmt::StmtClass::ForStmtClass) {}
 	};
 
 	class ContinueStmt : public Stmt
 	{
-
+	public:
+		ContinueStmt() :
+			Stmt(Stmt::StmtClass::ContinueStmtClass) {}
 	};
 
 	class BreakStmt : public Stmt
 	{
-
+	public:
+		BreakStmt() :
+			Stmt(Stmt::StmtClass::BreakStmtClass) {}
 	};
 
 	class ReturnStmt : public Stmt
 	{
-
+	public:
+		ReturnStmt() :
+			Stmt(Stmt::StmtClass::ReturnStmtClass) {}
 	};
 }
 

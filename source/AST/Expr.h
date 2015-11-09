@@ -10,13 +10,29 @@ namespace CppParser
 	public:
 		
 	public:
-	protected:
+		Expr() :
+			Stmt(Stmt::StmtClass::ExprClass) ,isCompileConstant_(false)
+			,isMerged_(false) {}
+		
+		bool isCompileConstant()
+		{
+			if (isMerged_)
+				return isCompileConstant_;
+			else
+				mergeCompileConstant();
+		}
+		
+		virtual void mergeCompileConstant() = 0;
 
+	protected:
+		bool isCompileConstant_;
+		bool isMerged_;
 	};
 
 	class DeclRefExpr : public Expr
 	{
-
+	public:
+		DeclRefExpr() = default;
 	};
 
 	class PredefinedExpr : public Expr
@@ -43,6 +59,8 @@ namespace CppParser
 	{
 
 	};
+
+
 
 	class ParenExpr : public Expr
 	{
