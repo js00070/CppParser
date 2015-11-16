@@ -67,7 +67,11 @@ namespace CppParser
 	public:
 		CompoundStmt() :
 			Stmt(Stmt::StmtClass::CompoundStmtClass) {}
-		void push_back(Stmt const* pStmt);
+		
+		void push_back(Stmt* pStmt)
+		{
+			stmtList_.emplace_back(std::unique_ptr<Stmt>(pStmt));
+		}
 
 	protected:
 		StmtList stmtList_;
@@ -102,6 +106,15 @@ namespace CppParser
 	public:
 		IfStmt() :
 			Stmt(Stmt::StmtClass::IfStmtClass) {}
+		IfStmt(std::unique_ptr<Expr>& expr,
+			std::unique_ptr<Stmt>& mainBody,
+			std::unique_ptr<Stmt>& elseBody) :
+			expr_(std::move(expr)),mainBody_(std::move(mainBody)),
+			elseBody_(elseBody) {}
+	protected:
+		std::unique_ptr<Expr> expr_;
+		std::unique_ptr<Stmt> mainBody_;
+		std::unique_ptr<Stmt> elseBody_;
 	};
 
 	class WhileStmt : public Stmt

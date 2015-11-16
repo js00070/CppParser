@@ -3,6 +3,16 @@
 
 namespace CppParser
 {
+	enum class NonTerminal
+	{
+
+	};
+
+	class Symbol
+	{
+
+	};
+
 	class ParseTree
 	{
 	public:
