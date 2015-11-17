@@ -29,9 +29,6 @@ namespace CppParser
 			BreakStmtClass,
 			ReturnStmtClass
 		};
-	protected:
-		StmtClass stmtClass_;
-		SourceLocation sourceLocation_;
 	public:
 		Stmt() :
 			stmtClass_(StmtClass::NoneClass) {}
@@ -42,7 +39,9 @@ namespace CppParser
 		{
 			return stmtClass_;
 		}
-
+	protected:
+		StmtClass stmtClass_;
+		SourceLocation sourceLocation_;
 	};
 
 	class DeclStmt : public Stmt
@@ -68,9 +67,9 @@ namespace CppParser
 		CompoundStmt() :
 			Stmt(Stmt::StmtClass::CompoundStmtClass) {}
 		
-		void push_back(Stmt* pStmt)
+		void addStmt(std::unique_ptr<Stmt>& pStmt)
 		{
-			stmtList_.emplace_back(std::unique_ptr<Stmt>(pStmt));
+			stmtList_.emplace_back(std::move(pStmt));
 		}
 
 	protected:
@@ -110,7 +109,7 @@ namespace CppParser
 			std::unique_ptr<Stmt>& mainBody,
 			std::unique_ptr<Stmt>& elseBody) :
 			expr_(std::move(expr)),mainBody_(std::move(mainBody)),
-			elseBody_(elseBody) {}
+			elseBody_(std::move(elseBody)) {}
 	protected:
 		std::unique_ptr<Expr> expr_;
 		std::unique_ptr<Stmt> mainBody_;

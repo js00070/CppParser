@@ -43,6 +43,8 @@ namespace CppParser
 			tokenStream_.popToken();
 		}
 
+		void eatToken(TokenType tt);
+		void eatToken(TokenValue tv);
 
 		Token& peekToken(int x = 0)
 		{
@@ -70,8 +72,18 @@ namespace CppParser
 		}
 
 		std::unique_ptr<Stmt> parseStmt();
+
 		std::unique_ptr<Stmt> parseIfStmt();
+		
+		std::unique_ptr<Stmt> parseForStmt();
+		
+		std::unique_ptr<Stmt> parseWhileStmt();
+		
+		std::unique_ptr<Stmt> parseCompoundStmt();
+		
 		std::unique_ptr<Expr> parseExpr();
+
+		std::unique_ptr<Expr> parseParenExpr();
 
 	private:
 		const std::string fileName_;
