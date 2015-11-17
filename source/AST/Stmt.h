@@ -106,13 +106,14 @@ namespace CppParser
 		IfStmt() :
 			Stmt(Stmt::StmtClass::IfStmtClass) {}
 		IfStmt(std::unique_ptr<Expr>& expr,
-			std::unique_ptr<Stmt>& mainBody,
+			std::unique_ptr<Stmt>& thenBody,
 			std::unique_ptr<Stmt>& elseBody) :
-			expr_(std::move(expr)),mainBody_(std::move(mainBody)),
+			Stmt(Stmt::StmtClass::IfStmtClass),
+			expr_(std::move(expr)),thenBody_(std::move(thenBody)),
 			elseBody_(std::move(elseBody)) {}
 	protected:
 		std::unique_ptr<Expr> expr_;
-		std::unique_ptr<Stmt> mainBody_;
+		std::unique_ptr<Stmt> thenBody_;
 		std::unique_ptr<Stmt> elseBody_;
 	};
 

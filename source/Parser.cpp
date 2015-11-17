@@ -95,18 +95,13 @@ namespace CppParser
 	std::unique_ptr<Expr> Parser::parseExpr()
 	{
 		std::unique_ptr<Expr> ret;
-		switch (peekValue())
-		{
-		case TokenValue::LEFT_PAREN:
-			parseParenExpr();
-			break;
-		}
+		
 	}
 
 	std::unique_ptr<Expr> Parser::parseParenExpr()
 	{
-		eatToken(TokenValue::LEFT_PAREN);
-		return parseExpr();
-		eatToken(TokenValue::RIGHT_PAREN);
+		std::unique_ptr<ParenExpr> ret;
+
+		return std::unique_ptr<Expr>(std::move(ret));
 	}
 }
