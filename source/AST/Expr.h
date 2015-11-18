@@ -8,25 +8,21 @@ namespace CppParser
 	class Expr : public Stmt
 	{
 	public:
-		
+		enum class ExprAttribute
+		{
+			Lvalue,
+			Rvalue
+		};
 	public:
 		Expr() :
-			Stmt(Stmt::StmtClass::ExprClass) ,isCompileConstant_(false)
-			,isMerged_(false) {}
-		
-		bool isCompileConstant()
-		{
-			if (isMerged_)
-				return isCompileConstant_;
-			else
-				mergeCompileConstant();
-		}
-		
-		virtual void mergeCompileConstant() = 0;
+			Stmt(Stmt::StmtClass::ExprClass) {}
+
+		Expr(ExprAttribute exprAttribute) :
+			Stmt(Stmt::StmtClass::ExprClass),
+			exprAttribute_(exprAttribute) {}
 
 	protected:
-		bool isCompileConstant_;
-		bool isMerged_;
+		ExprAttribute exprAttribute_;
 	};
 
 	class DeclRefExpr : public Expr

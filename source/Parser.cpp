@@ -83,7 +83,7 @@ namespace CppParser
 	std::unique_ptr<Stmt> Parser::parseCompoundStmt()
 	{
 		eatToken(TokenValue::LEFT_BRACE); // eat '{'
-		std::unique_ptr<CompoundStmt> ret;
+		std::unique_ptr<CompoundStmt> ret(new CompoundStmt);
 		while (peekValue() != TokenValue::RIGHT_BRACE)
 		{
 			ret->addStmt(parseStmt());
@@ -95,13 +95,10 @@ namespace CppParser
 	std::unique_ptr<Expr> Parser::parseExpr()
 	{
 		std::unique_ptr<Expr> ret;
-		
 	}
 
-	std::unique_ptr<Expr> Parser::parseParenExpr()
+	std::unique_ptr<Expr> Parser::parsePostfixExpr()
 	{
-		std::unique_ptr<ParenExpr> ret;
-
-		return std::unique_ptr<Expr>(std::move(ret));
+		std::unique_ptr<Expr> ret;
 	}
 }

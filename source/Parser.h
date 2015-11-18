@@ -78,7 +78,18 @@ namespace CppParser
 		std::unique_ptr<Stmt> parseCompoundStmt();
 
 		std::unique_ptr<Expr> parseExpr();
-		std::unique_ptr<Expr> parseParenExpr();
+		std::unique_ptr<Expr> parseOrExpr();
+		std::unique_ptr<Expr> parseAndExpr();
+		std::unique_ptr<Expr> parseEqualExpr();
+		std::unique_ptr<Expr> parseRelationExpr();
+		std::unique_ptr<Expr> parseAddExpr();
+		std::unique_ptr<Expr> parseMultExpr();
+		std::unique_ptr<Expr> parseCastExpr();
+		std::unique_ptr<Expr> parseUnaryExpr();
+		std::unique_ptr<Expr> parsePostfixExpr();
+		std::unique_ptr<Expr> parsePrimaryExpr();
+		std::unique_ptr<Expr> parseIdExpr();
+		ExprList parseExprList();
 
 	private:
 		const std::string fileName_;

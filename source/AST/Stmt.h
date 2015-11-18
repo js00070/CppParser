@@ -39,6 +39,7 @@ namespace CppParser
 		{
 			return stmtClass_;
 		}
+		virtual ~Stmt() {}
 	protected:
 		StmtClass stmtClass_;
 		SourceLocation sourceLocation_;
