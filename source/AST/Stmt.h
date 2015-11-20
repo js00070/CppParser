@@ -106,9 +106,9 @@ namespace CppParser
 	public:
 		IfStmt() :
 			Stmt(Stmt::StmtClass::IfStmtClass) {}
-		IfStmt(std::unique_ptr<Expr>& expr,
-			std::unique_ptr<Stmt>& thenBody,
-			std::unique_ptr<Stmt>& elseBody) :
+		IfStmt(std::unique_ptr<Expr> &expr,
+			std::unique_ptr<Stmt> &thenBody,
+			std::unique_ptr<Stmt> &elseBody) :
 			Stmt(Stmt::StmtClass::IfStmtClass),
 			expr_(std::move(expr)),thenBody_(std::move(thenBody)),
 			elseBody_(std::move(elseBody)) {}
@@ -123,6 +123,12 @@ namespace CppParser
 	public:
 		WhileStmt() :
 			Stmt(Stmt::StmtClass::WhileStmtClass) {}
+		WhileStmt(std::unique_ptr<Expr> &expr,std::unique_ptr<Stmt> &body) :
+			Stmt(Stmt::StmtClass::WhileStmtClass), 
+			expr_(std::move(expr)), body_(std::move(body)) {}
+	private:
+		std::unique_ptr<Expr> expr_;
+		std::unique_ptr<Stmt> body_;
 	};
 
 	class ForStmt : public Stmt

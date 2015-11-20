@@ -74,7 +74,6 @@ namespace CppParser
 					 qualified_id
 
 	unqualified_id : identifier
-					 // more
 
 	qualified_id   : name_specifier unqualified_id
 

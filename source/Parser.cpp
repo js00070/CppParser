@@ -59,7 +59,7 @@ namespace CppParser
 		eatToken(TokenValue::IF); // eat 'if'
 		eatToken(TokenValue::LEFT_PAREN); // eat '('
 		std::unique_ptr<Expr> expr(parseExpr());
-		std::unique_ptr<Stmt> mainBody(parseStmt());
+		std::unique_ptr<Stmt> thenBody(parseStmt());
 		std::unique_ptr<Stmt> elseBody(nullptr);
 		if (peekValue() == TokenValue::ELSE)
 		{
@@ -67,7 +67,7 @@ namespace CppParser
 			elseBody = parseStmt();
 		}
 		return std::unique_ptr<Stmt> \
-			(new IfStmt(expr, mainBody, elseBody));
+			(new IfStmt(expr, thenBody, elseBody));
 	}
 
 	std::unique_ptr<Stmt> Parser::parseForStmt()
@@ -77,7 +77,11 @@ namespace CppParser
 
 	std::unique_ptr<Stmt> Parser::parseWhileStmt()
 	{
-
+		eatToken(TokenValue::WHILE); // eat 'while'
+		eatToken(TokenValue::LEFT_PAREN); // eat '('
+		std::unique_ptr<Expr> expr(parseExpr());
+		std::unique_ptr<Stmt> body(parseStmt());
+		return std::unique_ptr<Stmt>(new WhileStmt(expr,body));
 	}
 
 	std::unique_ptr<Stmt> Parser::parseCompoundStmt()
@@ -100,5 +104,11 @@ namespace CppParser
 	std::unique_ptr<Expr> Parser::parsePostfixExpr()
 	{
 		std::unique_ptr<Expr> ret;
+	}
+
+	std::unique_ptr<Expr> Parser::parsePrimaryExpr()
+	{
+		TokenValue tv = peekValue();
+
 	}
 }
