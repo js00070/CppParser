@@ -8,27 +8,45 @@ namespace CppParser
 	class Expr : public Stmt
 	{
 	public:
-		enum class ExprAttribute
+		enum class ExprClass
 		{
-			Lvalue,
-			Rvalue
+			DeclRefExprClass,
+			PredefinedExprClass,
+			IntegerLiteralClass,
+			CharacterLiteralClass,
+			FloatingLiteral,
+			StringLiteral,
+			EnumConstantExprClass,
+			ParenExprClass,
+			UnaryOperatorClass,
+			ArraySubscriptExprClass,
+			CallExprClass,
+			MemberExprClass,
+			CastExprClass,
+			BinaryOperatorClass
 		};
 	public:
 		Expr() :
 			Stmt(Stmt::StmtClass::ExprClass) {}
 
-		Expr(ExprAttribute exprAttribute) :
+		Expr(ExprClass exprClass) :
 			Stmt(Stmt::StmtClass::ExprClass),
-			exprAttribute_(exprAttribute) {}
+			exprClass_(exprClass) {}
 
-	protected:
-		ExprAttribute exprAttribute_;
+		ExprClass getExprClass()
+		{
+			return exprClass_;
+		}
+
+	private:
+		ExprClass exprClass_;
 	};
 
 	class DeclRefExpr : public Expr
 	{
 	public:
-		DeclRefExpr() = default;
+		DeclRefExpr() :
+			Expr(Expr::ExprClass::DeclRefExprClass) {}
 	};
 
 	class PredefinedExpr : public Expr

@@ -103,12 +103,28 @@ namespace CppParser
 
 	std::unique_ptr<Expr> Parser::parsePostfixExpr()
 	{
-		std::unique_ptr<Expr> ret;
+		std::unique_ptr<Expr> primaryExpr(parsePrimaryExpr());
+
 	}
 
 	std::unique_ptr<Expr> Parser::parsePrimaryExpr()
 	{
 		TokenValue tv = peekValue();
-
+		std::unique_ptr<Expr> ret;
+		switch(tv)
+		{
+		case TokenValue::LEFT_PAREN:
+			eatToken(TokenValue::LEFT_PAREN);
+			ret = std::unique_ptr<Expr>(parseExpr());
+			eatToken(TokenValue::RIGHT_PAREN);
+			break;
+		case TokenValue::THIS:
+			eatToken(TokenValue::THIS);
+			return std::unique_ptr<Expr>();
+			break;
+		default:
+			break;
+		}
+		return ret;
 	}
 }

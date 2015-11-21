@@ -5,18 +5,9 @@
 
 namespace CppParser
 {
-	class Qualifiers
-	{
-
-	};
-
-	class QualType
-	{
-
-	};
-
 	class Type
 	{
+	public:
 
 	};
 

@@ -57,13 +57,13 @@ namespace CppParser
 					 ~
 
 	postfix_expr   : primary_expr
-					 postfix_expr [ expr ]
-					 postfix_expr ( expr_list )
-					 postfix_expr (  )
-					 postfix_expr . id_expr
-					 postfix_expr -> id_expr
-					 postfix_expr ++
-					 postfix_expr --
+					 postfix_expr [ expr ] // arraysubscriptexpr
+					 postfix_expr ( expr_list ) // callexpr
+					 postfix_expr (  ) // callexpr
+					 postfix_expr . id_expr // memberexpr
+					 postfix_expr -> id_expr // memberexpr
+					 postfix_expr ++ // unaryoperator
+					 postfix_expr -- // unaryoperator
 
 	primary_expr   : literal
 					 this
