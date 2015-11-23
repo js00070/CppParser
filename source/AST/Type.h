@@ -8,16 +8,45 @@ namespace CppParser
 	class Type
 	{
 	public:
-
+		enum class TypeClass
+		{
+			BuiltinTypeClass,
+			PointerTypeClass,
+			LValueReferenceTypeClass,
+			RValueReferenceTypeClass,
+			ArrayTypeClass,
+			FunctionTypeClass,
+			TypedefTypeClass,
+			ElaboratedType
+		};
+	public:
+		virtual TypeClass getType() = 0;
+		virtual ~Type() = 0;
 	};
 
 	class BuiltinType : public Type
 	{
+	public:
+		enum class BuiltinTypeClass
+		{
+			Int,
+			Char,
+			Float,
+			Bool
+		};
 
+		BuiltinType(BuiltinTypeClass builtinTypeClass) :
+			builtinTypeClass_(builtinTypeClass) {}
+
+	private:
+		BuiltinTypeClass builtinTypeClass_;
 	};
 
 	class PointerType : public Type
 	{
+	public:
+
+	private:
 
 	};
 
@@ -71,12 +100,12 @@ namespace CppParser
 
 	};
 
-	class TypedefType : public Type
+	class TypeWithKeyword : public Type
 	{
 
 	};
 
-	class TypeWithKeyword : public Type
+	class TypedefType : public TypeWithKeyword
 	{
 
 	};
